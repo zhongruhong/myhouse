@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	    <script type="text/javascript" src="js/vue.js" ></script>
+	    <script src="component/botton.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				template:`
+				<div class="app">
+				<Button color='default' >默认按钮</Button>
+				<Button color='primary' size='xs'>首选</Button>
+				<Button color='success' size='sm'>成功</Button>
+				<Button color='info' size='lg'>一般信息</Button>
+				<Button color='warning'>警告</Button>
+				<Button color='danger'>危险</Button>
+				<Button color='link'>链接</Button>
+				<Button :value="123"></Button>
+				</div>
+				`
+			})
+		</script>
+	</body>
+</html>
