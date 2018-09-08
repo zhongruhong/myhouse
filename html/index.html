@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<style type="text/css">
+			.box{
+				width: 200px;
+				height: 200px;
+				background: transparent;
+				transition: all 0.5s linear; 
+				background-color: red;					
+			}
+			.active{
+				background: green;
+				width: 300px;
+				height: 300px;
+			}
+			.box1{
+				width: 1000px;
+				height: 1000px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app">
+			<h1>{{title}}</h1> <br/>              <!-- // 绑定  只能读数据--> 
+			<input type="text" v-model="title" />  <!--  // 双向绑定 v-model 可读数据可改数据--> 
+			<ul>
+				<li v-for="(item,index) in users">
+					<span>{{item.name}}</span>
+					<span>{{item.age}}</span>
+					<span>{{item.sex}}</span>
+					<!--
+						获取事件元素对象 用$event
+                     -->
+					<button v-on:click="del(item,index,$event)">删除</button>
+					<ul >
+						<li v-for="child in item.children">
+								<span>{{child.name}}</span>
+								<span>{{child.age}}</span>
+								<span>{{child.sex}}</span>
+					</ul>
+				</li>
+			</ul>
+			<div class="box" v-if="show"></div>
+			<!--
+				v-if 移除  性能高，无缓存
+				v-show display：none 隐藏  有缓存，速度慢
+				v-bind 绑定数据到某个元素上 把字符串值变成变量
+            -->
+			<button v-on:click="show = !show">切换显示状态</button> <br />
+			{{cheakbox}}
+			<input type="checkbox"  v-model="cheakbox"/>
+			{{text}}
+			<textarea v-model="text"></textarea>
+			{{run()}}
+			<div v-bind:index='show'></div>
+		    <div v-text="title"></div>
+		    <div v-html="html"></div>
+		    <!--
+		    	v-bind:class="['box',{active:isActive}] 合并样式  //key：boolean
+		    	key是样式名称
+		    	boolean 设置key样式是否生效
+            -->
+		    <div v-on:click="isActive = !isActive" v-bind:class="['box',{active:isActive}]">
+		    	哈哈
+		    </div>
+		    <!--
+		    	v-bind:style html添加内联样式，使用数据驱动
+            -->
+		    <div v-bind:style="{backgroundColor:color}">
+		    	啦啦
+		    </div>
+		    {{color}}
+		    <input type="color" v-model="color" />
+		    <input type="range" v-model="range"/>   	
+		    <div class="box1" v-bind:style="{backgroundColor:'rgba(0,0,0,'+(range/100)+')'}">
+		      {{range}}
+		    </div>
+		</div>
+		<script type="text/javascript">
+
+			const vm=new Vue({
+				el:'.app', // 挂载实例
+				data:{ // 实例的数据
+					title:'这是一个标题',
+					html:'<h1>h1标签</h1>',
+					className:'active',
+					isActive:false,
+					color:'',
+					range:0,
+					show:true,
+					cheakbox:false,
+					text:'',
+					users:[
+					{
+						name:'张三',
+						age:18,
+						sex:'男'
+//						,
+//						children:[
+//						{
+//							name:'张三小弟1',
+//							age:16,
+//							sex:'男'
+//						},
+//						{
+//							name:'张三小弟2',
+//							age:19,
+//							sex:'女'
+//						},
+//						{
+//							name:'张三小弟3',
+//							age:21,
+//							sex:'女'
+//						}
+//						]
+					},
+					{
+						name:'历史',
+						age:20,
+						sex:'女'
+					},{
+						name:'老瓦',
+						age:30,
+						sex:'男'
+					}
+					]
+				},
+				methods:{ // 提供实例和模板的方法
+					run(){
+						return '跑的方法'
+					},
+					del(item,index,e){
+					 //console.log(item,index)
+					 console.log(e)
+					 // 删除数组一条
+					 this.users.splice(index,1)
+					 
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

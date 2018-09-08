@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			
+			<!--<dropdown-menu></dropdown-menu>-->
+		</div>
+		<script type="text/javascript">
+			// 组件名称大驼峰命名，可大小驼峰使用
+			Vue.component('DropdownMenu',{
+				// props的value用来获取下面组件<dropdown-menu/>的vulue属性     <dropdown-menu value='第一个'/>
+				// props是组件和父级的连接桥梁  从实例Vue的data传参给组件
+			    props:['value','data'],
+				template:`	
+				  <div class="btn">
+				       <h3>{{title}}</h3>
+				       <span>{{typeof data}}</span> 
+			           <h3>{{value}}</h3>
+			           <li v-for='item in data'>{{item}}</li>
+		          </div>
+				  
+				`,
+				data(){  // data选项是函数，返回一个对象
+					return{
+					title:'我的第一个组件'
+					}
+				}
+			})
+			new Vue({
+				el:'#app',
+				data:{
+					list:['哈哈','嘎嘎','啦啦'],
+					list2:['北京','上海','广州']
+				},
+				// 给实例指定模板选项，会替换挂载
+				//v-bind:绑定是变量  可以给props传参
+				template:`  
+				<div class="app">			
+				<dropdown-menu value='第一个' :data="'123'"/>
+				<DropdownMenu value='第二个'  :data='list'/>
+				<dropdownMenu value='第三个'  :data='list2'/>
+				</div>
+				`
+			
+			})
+		</script>
+	</body>
+</html>
